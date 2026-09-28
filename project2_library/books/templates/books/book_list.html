@@ -1,50 +1,59 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <title>My Book Library</title>
+    <link rel="stylesheet" href="{% static 'books/style.css' %}">
 </head>
 
 <body>
 
-    <h1>My Book Library</h1>
+    <div class="container">
 
-    <p>Total books: {{ books|length }}</p>
+        <h1>My Book Library</h1>
 
-    <p>
-        <a href="{% url 'add_book' %}">+ Add a new book</a>
-    </p>
+        <p>Total books: {{ books|length }}</p>
 
-    <table border="1" cellpadding="8">
+        <div class="add-link">
+            <a href="{% url 'add_book' %}">+ Add a new book</a>
+        </div>
 
-        <tr>
-            <th>No.</th>
-            <th>Title</th>
-            <th>Author</th>
-            <th>Year</th>
-            <th>Status</th>
-        </tr>
+        <table>
 
-        {% for book in books %}
+            <tr>
+                <th>No.</th>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Year</th>
+                <th>Status</th>
+            </tr>
 
-        <tr>
-            <td>{{ forloop.counter }}</td>
-            <td>{{ book.title }}</td>
-            <td>{{ book.author }}</td>
-            <td>{{ book.year_published }}</td>
-            <td>{{ book.is_available|yesno:"Available,Issued" }}</td>
-        </tr>
+            {% for book in books %}
 
-        {% empty %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ book.title }}</td>
+                <td>{{ book.author }}</td>
+                <td>{{ book.year_published }}</td>
+                <td>{{ book.is_available|yesno:"Available,Issued" }}</td>
+            </tr>
 
-        <tr>
-            <td colspan="5">No books yet. Add some in the admin page.</td>
-        </tr>
+            {% empty %}
 
-        {% endfor %}
+            <tr>
+                <td colspan="5">
+                    No books yet. Add a book to the library.
+                </td>
+            </tr>
 
-    </table>
+            {% endfor %}
+
+        </table>
+
+    </div>
 
 </body>
 
